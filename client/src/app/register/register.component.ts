@@ -14,16 +14,16 @@ export class RegisterComponent implements OnInit {
   constructor(private accountService: AccountService, private toastr: ToastrService){}
   ngOnInit() {
   }
-  register(){
-    this.accountService.register(this.model).subscribe(
-      response => {
-        console.log(response);
+  register() {
+    this.accountService.register(this.model).subscribe({
+      next: () => {
         this.cancel();
-      }, error => {
+      },
+      error: error => {
+        // this.toastr.error(error.error);
         console.log(error);
-        this.toastr.error(error.error);
-      }
-    );
+      } 
+    })
   }
 
   cancel(){
