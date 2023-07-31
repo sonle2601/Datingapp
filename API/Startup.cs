@@ -37,6 +37,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices(_config);
+
             services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
@@ -59,7 +60,7 @@ namespace API
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+ 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
