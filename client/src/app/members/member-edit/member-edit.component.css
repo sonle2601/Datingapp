@@ -1,0 +1,15 @@
+/* .img-thumbnail{
+    margin: 25px;
+    width: 85px;
+    height: 85px;
+} */
+
+.cart-body{
+    padding: 0 25px;
+}
+
+.cart-footer{
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: none;
+}
