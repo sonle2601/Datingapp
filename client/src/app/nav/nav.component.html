@@ -24,7 +24,8 @@
                
               
               <div class="dropdown" *ngIf="(accountService.currentUser$  | async) as user" dropdown>
-                <a style="text-decoration: none;"  class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>
+                <img src="{{user.photoUrl}}" alt="{{user.username}}">
+                <a style="text-decoration: none; margin-left: 10px;"  class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>
                 <div class="dropdown-menu mt-3" *dropdownMenu>
                     <a class="dropdown-item" routerLink="/member/edit">Edit Profile</a>
                     <div class="dropdown-divider"></div>
@@ -33,7 +34,7 @@
               </div>
 
               <form *ngIf="!(accountService.currentUser$ | async)" #loginFrom="ngForm" class="d-flex" role="search" (ngSubmit)="login()" autocomplete="off">
-                <input class="form-control me-2" type="text" placeholder="Username"
+                <input class="form-control mr-2" type="text" placeholder="Username"
                  name="username"
                  [(ngModel)]="model.username"
                 >
