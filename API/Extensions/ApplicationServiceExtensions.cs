@@ -19,6 +19,7 @@ namespace API.Extensions
             // services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoServices>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
