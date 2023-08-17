@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
+import { Toast, ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/_models/member';
 import { Message } from 'src/app/_models/message';
 import { MembersService } from 'src/app/_services/members.service';
@@ -24,28 +25,29 @@ export class MemberDetailComponent implements OnInit{
 
 
   constructor(private memberService: MembersService, private route: ActivatedRoute,
-      private messageService: MessageService){}
+      private messageService: MessageService, private toastr: ToastrService){}
 
-  ngOnInit(): void {
-    this.route.data.subscribe(data =>{
-      this.member = data['member'];
-    })
 
-    this.route.queryParams.subscribe(params=>{
-      params['tab'] ?  this.selectTab(params['tab']) : this.selectTab(0);
-    })
-    this.galleryOptions=[
-      {
-        width: '500px',
-        height: '500px',
-        imagePercent: 100,
-        thumbnailsColumns : 4,
-        imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
+      ngOnInit(): void {
+        this.route.data.subscribe(data =>{
+          this.member = data['member'];
+        })
+    
+        this.route.queryParams.subscribe(params=>{
+          params['tab'] ?  this.selectTab(params['tab']) : this.selectTab(0);
+        })
+        this.galleryOptions=[
+          {
+            width: '500px',
+            height: '500px',
+            imagePercent: 100,
+            thumbnailsColumns : 4,
+            imageAnimation: NgxGalleryAnimation.Slide,
+            preview: false
+          }
+        ]
+        this.galleryImages = this.getImages();  
       }
-    ]
-    this.galleryImages = this.getImages();  
-  }
 
   getImages() {
     if (!this.member) return [];
@@ -89,5 +91,10 @@ export class MemberDetailComponent implements OnInit{
       this.loadMessages();
     
     }
+  }
+  addLike(member: Member){
+    this.memberService.addLike(member.username).subscribe(()=>{
+      this.toastr.success("You have liked "+ member.knownAs);
+    })
   }
 }
